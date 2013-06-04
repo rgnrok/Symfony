@@ -1,0 +1,24 @@
+{% extends 'AcmeSearchBundle::layout.html.twig' %}
+
+{% block title %}Symfony - Welcome{% endblock %}
+
+{% block content_header '' %}
+
+    {% block content %}
+<form action="" method="post" {{ form_enctype(form) }}>
+    {{ form_errors(form) }}
+    {{ form_errors(form.search) }}
+    {{ form_label(form.search) }}
+    {{ form_widget(form.search) }}
+    {{ form_widget(form._token) }}
+
+
+    <input type="submit" />
+</form>
+{% if videos %}
+    <h1>Search Results</h1>
+<ul>
+{{ videos|raw }}
+</ul>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+form label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#form {
+    width: 50%;
+    float: left;
+}
+
+div.block form {
+    margin-bottom: 10px;
+}
