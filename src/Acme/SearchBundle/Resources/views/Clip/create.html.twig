@@ -1,0 +1,60 @@
+{% extends 'AcmeSearchBundle::layout.html.twig' %}
+
+{% block title %}Symfony - Welcome{% endblock %}
+
+{% block content_header '' %}
+
+    {% block content %}
+        <h3>Create Clip</h3>
+        <form class='cForm' action="" method="post" {{ form_enctype(form) }}>
+            {{ form_errors(form) }}
+            <div style="overflow: hidden; clear: both">
+                <div style="float: left">
+
+                    {{ form_errors(form.url) }}
+                    {{ form_label(form.url) }}
+                    {{ form_widget(form.url) }}
+                </div>
+                <div id="loadYouTubeVideo" style="float: left; margin-left: 10px" class="btn btn-green">Load</div>
+                <div style="float: right; margin-right: 40px">
+
+                    {{ form_errors(form.tags) }}
+                    {{ form_label(form.tags) }}
+                    {{ form_widget(form.tags) }}
+                </div>
+            </div>
+            <div style="overflow: hidden; clear: both">
+                <div class="video-block hide">
+                    <div id="youTubeIframe" style="text-align: center">
+
+                    </div>
+                    <div id="slider-range"></div>
+                </div>
+                <div style="float: left;">
+
+                    {{ form_errors(form.time_start) }}
+                    {{ form_label(form.time_start) }}
+                    {{ form_widget(form.time_start) }}
+                </div>
+                <div style="float: right; margin-right: 40px">
+
+                    {{ form_errors(form.time_end) }}
+                    {{ form_label(form.time_end) }}
+                    {{ form_widget(form.time_end) }}
+                </div>
+            </div>
+            <div>
+
+                {{ form_errors(form.description) }}
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description) }}
+            </div>
+
+                {{ form_widget(form._token) }}
+
+
+                <input type="submit" class="btn btn-green"/>
+
+        </form>
+
+    {% endblock %}

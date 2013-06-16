@@ -5,6 +5,9 @@ namespace Acme\SearchBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Acme\SearchBundle\Entity\Tag;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Clip
  *
@@ -34,6 +37,9 @@ class Clip
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255)
+     *
+     * @Assert\NotBlank(message="Enter URL")
+     * @Assert\Url(message="Enter valid URL", protocols={"http", "https"})
      */
     private $url;
 
@@ -41,6 +47,8 @@ class Clip
      * @var integer
      *
      * @ORM\Column(name="time_start", type="integer", columnDefinition="integer unsigned not null")
+     * @Assert\NotBlank(message="Enter Start Time")
+     * @Assert\Type(type="integer")
      */
     private $time_start;
 
@@ -48,6 +56,8 @@ class Clip
      * @var integer
      *
      * @ORM\Column(name="time_end", type="integer", columnDefinition="integer unsigned not null")
+     * * @Assert\NotBlank(message="Enter Start Time")
+     * @Assert\Type(type="integer")
      */
     private $time_end;
 
@@ -55,6 +65,14 @@ class Clip
     {
         $this->tags = new ArrayCollection();
     }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255)
+     *
+     */
+    private $description;
 
 
     /**
@@ -134,5 +152,96 @@ class Clip
     public function getTimeEnd()
     {
         return $this->time_end;
+    }
+
+    /**
+     * Set Tags
+     *
+     * @param ArrayCollection|Tag $tags
+     * @return Clip
+     * @throws \Exception
+     */
+    public function setTags( $tags)
+    {
+        if (!is_object($tags)) {
+            throw new \Exception('Tags must by Object');
+        }
+        switch (get_class($tags)) {
+            case 'Acme\SearchBundle\Entity\Tag':
+                $this->tags = new ArrayCollection(array($tags));
+                break;
+            case 'Doctrine\Common\Collections\ArrayCollection':
+                $this->tags = $tags;
+                break;
+            default:
+                throw new \Exception('Invalid tags Class');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add tags
+     *
+     * @param \Acme\SearchBundle\Entity\Tag $tags
+     * @return Clip
+     */
+    public function addTag(Tag $tags)
+    {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param \Acme\SearchBundle\Entity\Tag $tags
+     */
+    public function removeTag(Tag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function getTagsName()
+    {
+        $arrNames = array();
+        foreach ($this->tags as $objTag) {
+            $arrNames[] = $objTag->getName();
+        }
+        return $arrNames;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Clip
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

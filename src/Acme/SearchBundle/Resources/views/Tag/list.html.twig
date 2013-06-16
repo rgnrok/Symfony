@@ -1,0 +1,28 @@
+{% extends 'AcmeSearchBundle::layout.html.twig' %}
+
+{% block title %}Symfony - Welcome{% endblock %}
+
+{% block content_header '' %}
+
+    {% block content %}
+        <h3>Tags list</h3>
+     <table class="table table-striped table-bordered ">
+         <thead>
+             <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Clips count</th>
+             </tr>
+         </thead>
+         <tbody>
+         {% for tag in tags %}
+            <tr>
+                <td>{{ tag.tag_id }}</td>
+                <td>{{ tag.tag_name }}</td>
+                <td>{{ tag.clips_count }}</td>
+            </tr>
+             {% endfor %}
+         </tbody>
+     </table>
+
+    {% endblock %}

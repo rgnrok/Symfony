@@ -7,3 +7,6 @@ acme_google:
 clip_create:
     resource: "@AcmeSearchBundle/Controller/ClipController.php"
     type:     annotation
+tag_create:
+    resource: "@AcmeSearchBundle/Controller/TagController.php"
+    type:     annotation

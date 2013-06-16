@@ -2,13 +2,14 @@
 
 namespace Acme\SearchBundle\Entity;
 
+use Acme\SearchBundle\Entity\Clip;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Tag
  *
- * @ORM\Table()
+ * @ORM\Table(name="tag")
  * @ORM\Entity
  */
 class Tag
@@ -73,5 +74,38 @@ class Tag
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add clips
+     *
+     * @param \Acme\SearchBundle\Entity\Clip $clips
+     * @return Tag
+     */
+    public function addClip(Clip $clips)
+    {
+        $this->clips[] = $clips;
+
+        return $this;
+    }
+
+    /**
+     * Remove clips
+     *
+     * @param \Acme\SearchBundle\Entity\Clip $clips
+     */
+    public function removeClip(Clip $clips)
+    {
+        $this->clips->removeElement($clips);
+    }
+
+    /**
+     * Get clips
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getClips()
+    {
+        return $this->clips;
     }
 }

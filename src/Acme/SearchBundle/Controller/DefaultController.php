@@ -16,7 +16,7 @@ class DefaultController extends Controller
 {
 
     /**
-     * @Route("/google/search")
+     * @Route("/", name="home")
      * @Template("AcmeSearchBundle:Default:google.html.twig")
      */
     public function googleSearch()

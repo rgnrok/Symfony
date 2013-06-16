@@ -5,15 +5,16 @@
 {% block content_header '' %}
 
     {% block content %}
-<form action="" method="post" {{ form_enctype(form) }}>
+<form action="" method="post" class="cForm" {{ form_enctype(form) }}>
     {{ form_errors(form) }}
+    <div>
     {{ form_errors(form.search) }}
     {{ form_label(form.search) }}
     {{ form_widget(form.search) }}
     {{ form_widget(form._token) }}
+    </div>
 
-
-    <input type="submit" />
+    <input type="submit" class="btn btn-red" />
 </form>
 {% if videos %}
     <h1>Search Results</h1>
