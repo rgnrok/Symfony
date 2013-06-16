@@ -59,7 +59,6 @@ class ClipController extends Controller
 
         $query = $repository->createQueryBuilder('c')
             ->orderBy('c.id', 'DESC')
-
             ->getQuery();
         $clips = $query->getResult();
 
