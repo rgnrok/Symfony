@@ -11,3 +11,190 @@ form label {
 div.block form {
     margin-bottom: 10px;
 }
+
+.main-menu {
+    clear: both;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.main-menu ul {
+    clear: both;
+    overflow: hidden;
+    float: left;
+}
+
+.main-menu li {
+
+}
+.main-menu a {
+    text-decoration: none;
+    margin: 0 10px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.main-menu a:hover {
+    text-decoration: underline;
+}
+
+.main-menu > ul > li > a:hover {
+    text-decoration: none;
+}
+
+.main-menu li {
+    list-style: none;
+    position: relative;
+}
+
+.main-menu > ul > li > a {
+
+    -moz-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    writing-mode: tb-rl;
+    display:block;
+    font-size:30px;
+    height:100px;
+
+    text-align:center;
+    width:85px;
+
+}
+
+
+
+.main-menu ul li ul, .main-menu ul li ul li ul {
+    display: block;
+    top: 0;
+    position: absolute;
+    padding: 0;
+    left: 0;
+    margin-left:150px;
+    margin-top:20px;
+}
+
+.main-menu ul li:hover ul {
+    display: block;
+}
+
+.header-logo {
+    float: right;
+    margin-top: 15px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.page-wrapper {
+    margin:0 auto;
+}
+
+.kwicks {
+    width: 515px;
+    height: 100px;
+}
+.kwicks > li {
+    width: 125px;
+    height: 100px;
+    /* overridden by kwicks but good for when JavaScript is disabled */
+    margin-left: 5px;
+    float: left;
+}
+.kwicks {
+    display: block;
+    list-style-type: none;
+    list-style: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+.kwicks > * {
+    display: block;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+.kwicks.kwicks-processed > * {
+    margin: 0;
+    position: absolute;
+}
+.kwicks-horizontal > * {
+    float: left;
+}
+.kwicks-horizontal > :first-child {
+    margin-left: 0;
+}
+.kwicks-vertical > :first-child {
+    margin-top: 0;
+}
+.tab-1, .btn-red {
+    background: red;
+}
+.tab-2, .btn-yellow, .btn-yellow:hover {
+    background: yellow;
+}
+.tab-2 a {
+    color: #000;
+}
+.tab-3, .btn-green, .btn-green:hover {
+    background: green;
+}
+.tab-4 {
+    background: blue;
+}
+
+.main-menu > ul > li.first {
+    -moz-border-radius-bottomleft:10px;
+    -moz-border-radius-topleft:10px;
+
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.main-menu > ul > li.last {
+    -moz-border-radius-bottomright:10px;
+    -moz-border-radius-topright:10px;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+
+
+.cForm label {
+    width: 120px;
+    display: block;
+    float: left;
+    text-align: right;
+    margin-top: 3px;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:12px;
+    line-height: normal;
+    background: #efefef;
+}
+
+html {
+    background: #efefef;
+}
+
+.btn {
+    padding: 5px;
+}
+.btn-red, .btn-green, .btn-red:hover, .btn-green:hover {
+    color: #ffffff;
+}
+
+#slider-range {
+    margin: 10px 0;
+}
+
