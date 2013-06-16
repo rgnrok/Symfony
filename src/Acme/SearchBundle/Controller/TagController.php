@@ -22,8 +22,7 @@ class TagController extends Controller
         $request = $this->getRequest();
         $form = $this->createForm(new Edit());
 
-        if ($request->getMethod() == 'POST') {
-            $form->bind($request);
+        $form->handleRequest($request);
             if ($form->isValid()) {
                 $arrData =  $form->getData();
 
@@ -34,7 +33,7 @@ class TagController extends Controller
                 $em->persist($tag);
                 $em->flush();
             }
-        }
+
 
         return array(
             'form' => $form->createView()
@@ -52,11 +51,11 @@ class TagController extends Controller
             ->getRepository('AcmeSearchBundle:Tag');
 
         $query = $repository->createQueryBuilder('t')
-        ->select('tag, count(clips) clips_count')
-        ->from('AcmeSearchBundle:Tag', 'tag')
-            ->innerJoin('tag.clips', 'clips')
-            ->groupBy('tag.id')
-            ->getQuery();
+            ->select('tag, count(clips) clips_count')
+            ->from('AcmeSearchBundle:Tag', 'tag')
+                ->innerJoin('tag.clips', 'clips')
+                ->groupBy('tag.id')
+                ->getQuery();
 
         $tags = $query->getResult(\Doctrine\ORM\AbstractQuery::HYDRATE_SCALAR);
 

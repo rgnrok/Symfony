@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Url;
-//use Symfony\Component\Validator\Constraints\;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -33,10 +32,20 @@ class Edit extends AbstractType
         ));
 
         //Tag
-        $builder->add('tags', 'entity', array(
-            'class' => 'AcmeSearchBundle:Tag',
-            'property' => 'name',
-        ));
+//        $builder->add('tags', 'entity', array(
+//            'class' => 'AcmeSearchBundle:Tag',
+//            'property' => 'name',
+//        ));
+        $builder->add('tags', 'collection', array(
+            'type' => new \Acme\SearchBundle\Form\Tag\Edit(),
+                'allow_add'    => true,
+                'by_reference' => false,
+                'allow_delete' => true,
+
+
+            )
+        );
+
 
         //Description
         $builder->add('description', 'text', array(

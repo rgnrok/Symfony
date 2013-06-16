@@ -195,6 +195,14 @@ html {
 }
 
 #slider-range {
-    margin: 10px 0;
+    margin: 10px;
 }
 
+.tags li {
+    overflow: hidden;
+    clear: both;
+}
+
+.tags li div {
+    float: left;
+}
