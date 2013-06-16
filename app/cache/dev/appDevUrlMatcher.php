@@ -25,79 +25,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         $allow = array();
         $pathinfo = rawurldecode($pathinfo);
 
-        // _welcome
-        if (rtrim($pathinfo, '/') === '') {
-            if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', '_welcome');
-            }
-
-            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\WelcomeController::indexAction',  '_route' => '_welcome',);
-        }
-
-        if (0 === strpos($pathinfo, '/demo')) {
-            if (0 === strpos($pathinfo, '/demo/secured')) {
-                if (0 === strpos($pathinfo, '/demo/secured/log')) {
-                    if (0 === strpos($pathinfo, '/demo/secured/login')) {
-                        // _demo_login
-                        if ($pathinfo === '/demo/secured/login') {
-                            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::loginAction',  '_route' => '_demo_login',);
-                        }
-
-                        // _security_check
-                        if ($pathinfo === '/demo/secured/login_check') {
-                            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::securityCheckAction',  '_route' => '_security_check',);
-                        }
-
-                    }
-
-                    // _demo_logout
-                    if ($pathinfo === '/demo/secured/logout') {
-                        return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::logoutAction',  '_route' => '_demo_logout',);
-                    }
-
-                }
-
-                if (0 === strpos($pathinfo, '/demo/secured/hello')) {
-                    // acme_demo_secured_hello
-                    if ($pathinfo === '/demo/secured/hello') {
-                        return array (  'name' => 'World',  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloAction',  '_route' => 'acme_demo_secured_hello',);
-                    }
-
-                    // _demo_secured_hello
-                    if (preg_match('#^/demo/secured/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_secured_hello')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloAction',));
-                    }
-
-                    // _demo_secured_hello_admin
-                    if (0 === strpos($pathinfo, '/demo/secured/hello/admin') && preg_match('#^/demo/secured/hello/admin/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_secured_hello_admin')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloadminAction',));
-                    }
-
-                }
-
-            }
-
-            // _demo
-            if (rtrim($pathinfo, '/') === '/demo') {
-                if (substr($pathinfo, -1) !== '/') {
-                    return $this->redirect($pathinfo.'/', '_demo');
-                }
-
-                return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::indexAction',  '_route' => '_demo',);
-            }
-
-            // _demo_hello
-            if (0 === strpos($pathinfo, '/demo/hello') && preg_match('#^/demo/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_hello')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::helloAction',));
-            }
-
-            // _demo_contact
-            if ($pathinfo === '/demo/contact') {
-                return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::contactAction',  '_route' => '_demo_contact',);
-            }
-
-        }
-
         if (0 === strpos($pathinfo, '/_')) {
             // _wdt
             if (0 === strpos($pathinfo, '/_wdt') && preg_match('#^/_wdt/(?P<token>[^/]++)$#s', $pathinfo, $matches)) {
@@ -211,14 +138,112 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'acme_hello_homepage')), array (  '_controller' => 'AcmeHelloBundle:Default:index',));
         }
 
-        // acme_search_default_googlesearch
-        if ($pathinfo === '/google/search') {
-            return array (  '_controller' => 'Acme\\SearchBundle\\Controller\\DefaultController::googleSearch',  '_route' => 'acme_search_default_googlesearch',);
+        // home
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'home');
+            }
+
+            return array (  '_controller' => 'Acme\\SearchBundle\\Controller\\DefaultController::googleSearch',  '_route' => 'home',);
         }
 
-        // acme_search_clip_create
-        if ($pathinfo === '/clip/create') {
-            return array (  '_controller' => 'Acme\\SearchBundle\\Controller\\ClipController::createAction',  '_route' => 'acme_search_clip_create',);
+        if (0 === strpos($pathinfo, '/clip')) {
+            // clip_create
+            if ($pathinfo === '/clip/create') {
+                return array (  '_controller' => 'Acme\\SearchBundle\\Controller\\ClipController::createAction',  '_route' => 'clip_create',);
+            }
+
+            // clip_list
+            if ($pathinfo === '/clip/list') {
+                return array (  '_controller' => 'Acme\\SearchBundle\\Controller\\ClipController::listAction',  '_route' => 'clip_list',);
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/tag')) {
+            // tag_create
+            if ($pathinfo === '/tag/create') {
+                return array (  '_controller' => 'Acme\\SearchBundle\\Controller\\TagController::createAction',  '_route' => 'tag_create',);
+            }
+
+            // tag_list
+            if ($pathinfo === '/tag/list') {
+                return array (  '_controller' => 'Acme\\SearchBundle\\Controller\\TagController::listAction',  '_route' => 'tag_list',);
+            }
+
+        }
+
+        // _welcome
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', '_welcome');
+            }
+
+            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\WelcomeController::indexAction',  '_route' => '_welcome',);
+        }
+
+        if (0 === strpos($pathinfo, '/demo')) {
+            if (0 === strpos($pathinfo, '/demo/secured')) {
+                if (0 === strpos($pathinfo, '/demo/secured/log')) {
+                    if (0 === strpos($pathinfo, '/demo/secured/login')) {
+                        // _demo_login
+                        if ($pathinfo === '/demo/secured/login') {
+                            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::loginAction',  '_route' => '_demo_login',);
+                        }
+
+                        // _security_check
+                        if ($pathinfo === '/demo/secured/login_check') {
+                            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::securityCheckAction',  '_route' => '_security_check',);
+                        }
+
+                    }
+
+                    // _demo_logout
+                    if ($pathinfo === '/demo/secured/logout') {
+                        return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::logoutAction',  '_route' => '_demo_logout',);
+                    }
+
+                }
+
+                if (0 === strpos($pathinfo, '/demo/secured/hello')) {
+                    // acme_demo_secured_hello
+                    if ($pathinfo === '/demo/secured/hello') {
+                        return array (  'name' => 'World',  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloAction',  '_route' => 'acme_demo_secured_hello',);
+                    }
+
+                    // _demo_secured_hello
+                    if (preg_match('#^/demo/secured/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_secured_hello')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloAction',));
+                    }
+
+                    // _demo_secured_hello_admin
+                    if (0 === strpos($pathinfo, '/demo/secured/hello/admin') && preg_match('#^/demo/secured/hello/admin/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_secured_hello_admin')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloadminAction',));
+                    }
+
+                }
+
+            }
+
+            // _demo
+            if (rtrim($pathinfo, '/') === '/demo') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', '_demo');
+                }
+
+                return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::indexAction',  '_route' => '_demo',);
+            }
+
+            // _demo_hello
+            if (0 === strpos($pathinfo, '/demo/hello') && preg_match('#^/demo/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_hello')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::helloAction',));
+            }
+
+            // _demo_contact
+            if ($pathinfo === '/demo/contact') {
+                return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::contactAction',  '_route' => '_demo_contact',);
+            }
+
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
