@@ -22,10 +22,9 @@ class ClipController extends Controller
         $clip = new Clip();
         $form = $this->createForm(new Edit());
 
-        //if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                /* @var $arrData \Acme\SearchBundle\Entity\Clip */
+                /* @var $clip \Acme\SearchBundle\Entity\Clip */
                 $clip =  $form->getData();
 
 //
@@ -40,7 +39,6 @@ class ClipController extends Controller
 
                 return $this->redirect($this->generateUrl('clip_list'));
             }
-        //}
 
 
         return array(
