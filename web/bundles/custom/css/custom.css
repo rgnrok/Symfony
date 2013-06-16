@@ -130,7 +130,7 @@ body {
 .kwicks-vertical > :first-child {
     margin-top: 0;
 }
-.tab-1, .btn-red {
+.tab-1, .btn-red,  .btn-red:hover  {
     background: red;
 }
 .tab-2, .btn-yellow, .btn-yellow:hover {

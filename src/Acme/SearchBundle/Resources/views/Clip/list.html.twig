@@ -14,6 +14,7 @@
                 <th>Time Start</th>
                 <th>Time End</th>
                 <th>Tags</th>
+                 <th>Action</th>
              </tr>
          </thead>
          <tbody>
@@ -24,6 +25,7 @@
                 <td>{{ clip.getTimeStart() }}</td>
                 <td>{{ clip.getTimeEnd() }}</td>
                 <td>{{ clip.getTagsName() | join(', ') }}</td>
+                <td><a href="{{ path('clip_create', {'id': clip.getId()}) }}">Edit</a></td>
             </tr>
              {% endfor %}
          </tbody>

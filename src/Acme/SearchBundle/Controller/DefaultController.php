@@ -26,8 +26,7 @@ class DefaultController extends Controller
         $form = $this->createForm(new Search());
 
         $videos = '';
-        if ($request->getMethod() == 'POST') {
-            $form->bind($request);
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 $arrData =  $form->getData();
 
@@ -55,7 +54,6 @@ class DefaultController extends Controller
                         }
                     }
 
-                }
         }
 
 
