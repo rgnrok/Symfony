@@ -1,0 +1,12 @@
+acme_hello_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: VolcanoVideoStatusBundle:Default:index }
+acme_google:
+    resource: "@VolcanoVideoStatusBundle/Controller/DefaultController.php"
+    type:     annotation
+clip_create:
+    resource: "@VolcanoVideoStatusBundle/Controller/ClipController.php"
+    type:     annotation
+tag_create:
+    resource: "@VolcanoVideoStatusBundle/Controller/TagController.php"
+    type:     annotation

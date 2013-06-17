@@ -1,0 +1,34 @@
+{% extends 'VolcanoVideoStatusBundle::layout.html.twig' %}
+
+{% block title %}Symfony - Welcome{% endblock %}
+
+{% block content_header '' %}
+
+    {% block content %}
+        <h3>Clips list</h3>
+     <table class="table table-striped table-bordered ">
+         <thead>
+             <tr>
+                <th>Id</th>
+                <th>Url</th>
+                <th>Time Start</th>
+                <th>Time End</th>
+                <th>Tags</th>
+                 <th>Action</th>
+             </tr>
+         </thead>
+         <tbody>
+         {% for clip in clips %}
+            <tr>
+                <td>{{ clip.getId() }}</td>
+                <td>{{ clip.getUrl() }}</td>
+                <td>{{ clip.getTimeStart() }}</td>
+                <td>{{ clip.getTimeEnd() }}</td>
+                <td>{{ clip.getTagsName() | join(', ') }}</td>
+                <td><a href="{{ path('clip_create', {'id': clip.getId()}) }}">Edit</a></td>
+            </tr>
+             {% endfor %}
+         </tbody>
+     </table>
+
+    {% endblock %}
