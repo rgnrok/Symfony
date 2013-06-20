@@ -1,6 +1,6 @@
 {% extends 'VolcanoVideoStatusBundle::layout.html.twig' %}
 
-{% block title %}Symfony - Tag List{% endblock %}
+{% block title %}VS - Tags{% endblock %}
 
 
 
@@ -12,6 +12,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Clips count</th>
+                <th>Action</th>
              </tr>
          </thead>
          <tbody>
@@ -20,6 +21,7 @@
                 <td>{{ tag.tag_id }}</td>
                 <td>{{ tag.tag_name }}</td>
                 <td>{{ tag.clips_count }}</td>
+                <td><a href="{{ path('tag_create', {'id': tag.tag_id}) }}">Edit</a></td>
             </tr>
              {% endfor %}
          </tbody>

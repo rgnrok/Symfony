@@ -1,6 +1,6 @@
 {% extends 'VolcanoVideoStatusBundle::layout.html.twig' %}
 
-{% block title %}Symfony - Welcome{% endblock %}
+{% block title %}VS - Clips{% endblock %}
 
 {% block content_header '' %}
 
@@ -13,6 +13,7 @@
                 <th>Url</th>
                 <th>Time Start</th>
                 <th>Time End</th>
+                <th>Description</th>
                 <th>Tags</th>
                  <th>Action</th>
              </tr>
@@ -21,9 +22,10 @@
          {% for clip in clips %}
             <tr>
                 <td>{{ clip.getId() }}</td>
-                <td>{{ clip.getUrl() }}</td>
+                <td><a href="{{ clip.getUrl() }}">{{ clip.getUrl() | truncate(50) }}</a></td>
                 <td>{{ clip.getTimeStart() }}</td>
                 <td>{{ clip.getTimeEnd() }}</td>
+                <td>{{ clip.getDescription | truncate(50) }}</td>
                 <td>{{ clip.getTagsName() | join(', ') }}</td>
                 <td><a href="{{ path('clip_create', {'id': clip.getId()}) }}">Edit</a></td>
             </tr>

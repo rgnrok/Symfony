@@ -1,6 +1,6 @@
 {% extends 'VolcanoVideoStatusBundle::layout.html.twig' %}
 
-{% block title %}Symfony - Welcome{% endblock %}
+{% block title %}VS - Create Your Clip{% endblock %}
 
 
 
@@ -31,13 +31,20 @@
 
                     {{ form_errors(form.time_start) }}
                     {{ form_label(form.time_start) }}
-                    {{ form_widget(form.time_start) }}
+                    <input type="text" id="time_start_visible">
+                    <div class="hide">
+                        {{ form_widget(form.time_start) }}
+                    </div>
+
                 </div>
                 <div style="float: right; margin-right: 40px">
 
                     {{ form_errors(form.time_end) }}
                     {{ form_label(form.time_end) }}
-                    {{ form_widget(form.time_end) }}
+                    <input type="text" id="time_end_visible">
+                    <div class="hide">
+                        {{ form_widget(form.time_end) }}
+                    </div>
                 </div>
             </div>
             <div>
@@ -63,8 +70,8 @@
 
                 {{ form_widget(form._token) }}
 
-
-                <input type="submit" class="btn btn-green"/>
+                <input type="hidden" id="is_edit" value="{{ isEdit }}">
+                <input type="submit" class="btn btn-green" value="Save"/>
 
         </form>
 

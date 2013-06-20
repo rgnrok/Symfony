@@ -32,11 +32,8 @@ class ClipController extends Controller
             foreach ($clip->getTags() as $tag) {
                 $existsTags[] = $tag;
             }
-
-
         }
         $form = $this->createForm(new Edit(), $clip);
-
 
         $form->handleRequest($request);
 
@@ -62,17 +59,16 @@ class ClipController extends Controller
             }
             $clip->setTags($collectionTags);
 
-
             $em->persist($clip);
             $em->flush();
 
             return $this->redirect($this->generateUrl('clip_list'));
         }
 
-
         return array(
             'form' => $form->createView(),
             'clip_tags' => $existsTags,
+            'isEdit' => !empty($clipId),
         );
     }
 

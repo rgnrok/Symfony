@@ -12,7 +12,7 @@ class Search extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('search', 'text', array(
-            'label' => 'Search keywords:',
+            'label' => 'Keywords:',
             'required' => true,
         ));
 

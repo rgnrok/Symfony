@@ -1,25 +1,25 @@
 {% extends 'VolcanoVideoStatusBundle::layout.html.twig' %}
 
-{% block title %}Symfony - Welcome{% endblock %}
+{% block title %}Video Status - Welcome{% endblock %}
 
 
+{% block content %}
+    <h3>Find Video</h3>
+    <form action="" method="post" class="cForm" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+        <div>
+            {{ form_errors(form.search) }}
+            {{ form_label(form.search) }}
+            {{ form_widget(form.search) }}
+            {{ form_widget(form._token) }}
+        </div>
 
-    {% block content %}
-<form action="" method="post" class="cForm" {{ form_enctype(form) }}>
-    {{ form_errors(form) }}
-    <div>
-    {{ form_errors(form.search) }}
-    {{ form_label(form.search) }}
-    {{ form_widget(form.search) }}
-    {{ form_widget(form._token) }}
-    </div>
-
-    <input type="submit" class="btn btn-red" />
-</form>
-{% if videos %}
-    <h1>Search Results</h1>
-<ul>
-{{ videos|raw }}
-</ul>
-{% endif %}
+        <input type="submit" class="btn btn-red" value="Search"/>
+    </form>
+    {% if videos %}
+        <h1>Search Results</h1>
+        <ul>
+            {{ videos|raw }}
+        </ul>
+    {% endif %}
 {% endblock %}
