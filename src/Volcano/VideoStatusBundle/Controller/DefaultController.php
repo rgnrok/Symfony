@@ -11,8 +11,6 @@ use Volcano\VideoStatusBundle\Form\Search;
 use Symfony\Component\HttpFoundation\Response;
 
 
-
-
 class DefaultController extends Controller
 {
 
@@ -27,38 +25,38 @@ class DefaultController extends Controller
         $form = $this->createForm(new Search());
 
         $videos = '';
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $arrData =  $form->getData();
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $arrData = $form->getData();
 
-                $DEVELOPER_KEY = 'AIzaSyCVYHBPJhyqWRpqkxVvOcBsVqpJf_SAruQ';
-                $resultCount = 10;
-                $client = new Google_Client();
-                $client->setDeveloperKey($DEVELOPER_KEY);
+            $DEVELOPER_KEY = 'AIzaSyCVYHBPJhyqWRpqkxVvOcBsVqpJf_SAruQ';
+            $resultCount = 10;
+            $client = new Google_Client();
+            $client->setDeveloperKey($DEVELOPER_KEY);
 
-                $youtube = new Google_YouTubeService($client);
+            $youtube = new Google_YouTubeService($client);
 
-                    $searchResponse = $youtube->search->listSearch('snippet', array(
-                        'q' => $arrData['search'],
-                        'maxResults' => $resultCount,
-                    ));
-                    $videos = '';
+            $searchResponse = $youtube->search->listSearch('snippet', array(
+                'q' => $arrData['search'],
+                'maxResults' => $resultCount,
+            ));
+            $videos = '';
 
 
-                    foreach ($searchResponse['items'] as $searchResult) {
-                        switch ($searchResult['id']['kind']) {
-                            case 'youtube#video':
+            foreach ($searchResponse['items'] as $searchResult) {
+                switch ($searchResult['id']['kind']) {
+                    case 'youtube#video':
 
-                                $videoInfo = $this->_parseVideoEntry($searchResult['id']['videoId']);
+                        $videoInfo = $this->_parseVideoEntry($searchResult['id']['videoId']);
 
-                                $videoDuration = gmdate("H:i:s", (int)$videoInfo->length);
-                                $videoStr = sprintf('<li>%s - %s (<a href="http://www.youtube.com/watch?v=' . '%s' . '">Show</a>)</li>', $searchResult['snippet']['title'],
-                                    $videoDuration, $searchResult['id']['videoId']);
-                                $videos .= $videoStr;
+                        $videoDuration = gmdate("H:i:s", (int)$videoInfo->length);
+                        $videoStr = sprintf('<li>%s - %s (<a href="http://www.youtube.com/watch?v=' . '%s' . '">Show</a>)</li>', $searchResult['snippet']['title'],
+                            $videoDuration, $searchResult['id']['videoId']);
+                        $videos .= $videoStr;
 
-                                break;
-                        }
-                    }
+                        break;
+                }
+            }
 
         }
 
@@ -84,7 +82,7 @@ class DefaultController extends Controller
 
     protected function _parseVideoEntry($youtubeVideoID)
     {
-        $obj= new \stdClass();
+        $obj = new \stdClass();
 
         // set video data feed URL
         $feedURL = 'http://gdata.youtube.com/feeds/api/videos/' . $youtubeVideoID;
@@ -117,20 +115,16 @@ class DefaultController extends Controller
 
         // get <gd:rating> node for video ratings
         $gd = $entry->children('http://schemas.google.com/g/2005');
-        if ($gd->rating)
-        {
+        if ($gd->rating) {
             $attrs = $gd->rating->attributes();
             $obj->rating = $attrs['average'];
-        }
-        else
-        {
+        } else {
             $obj->rating = 0;
         }
 
         // get <gd:comments> node for video comments
         $gd = $entry->children('http://schemas.google.com/g/2005');
-        if ($gd->comments->feedLink)
-        {
+        if ($gd->comments->feedLink) {
             $attrs = $gd->comments->feedLink->attributes();
             $obj->commentsURL = $attrs['href'];
             $obj->commentsCount = $attrs['countHint'];
