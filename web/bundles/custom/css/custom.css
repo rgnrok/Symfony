@@ -206,3 +206,19 @@ html {
 .tags li div {
     float: left;
 }
+
+form ul li {
+    list-style-type: none;
+}
+
+.btn-warning {
+    margin-left: 5px;
+}
+
+a, a:visited {
+    text-decoration: none;
+}
+
+.sf-reset a {
+    color: #006CCC;
+}

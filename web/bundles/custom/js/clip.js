@@ -16,20 +16,10 @@ jQuery(document).ready(function() {
     // index when inserting a new item (e.g. 2)
     collectionHolder.data('index', collectionHolder.find(':input').length);
 
+    var bInit = true;
 
-    if ($("#slider-range").size()) {
-        $("#slider-range").slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [ 1, 400 ],
-            slide: function( event, ui ) {
-                $( "#clip_edit_time_start" ).val( ui.values[ 0 ]);
-                $( "#clip_edit_time_end" ).val( ui.values[ 1 ] );
-            }
-        });
-        $( "#clip_edit_time_start" ).val( $( "#slider-range" ).slider( "values", 0 ));
-        $( "#fclip_edit_time_end" ).val( $( "#slider-range" ).slider( "values", 1 ) );
+    if ($('#is_edit').val()) {
+        setTimeout(function(){ $('#loadYouTubeVideo').click() }, 100);
     }
 
     $('#loadYouTubeVideo').click(function(){
@@ -40,13 +30,56 @@ jQuery(document).ready(function() {
         if (match[2] === undefined) {
             return false
         }
+        $.ajax({
+            type: 'post',
+            url: '/get-video-info',
+            data: {
+                'id': match[2]
+            },
+            success: function($json){
+                var $info = $.parseJSON($json);
+                var $iframeUrl = 'http://www.youtube.com/embed/' + match[2];
 
-        var $iframeUrl = 'http://www.youtube.com/embed/' + match[2];
+                $('#youTubeIframe').html(
+                    '<iframe width="560" height="315" src="' + $iframeUrl + '" frameborder="0" allowfullscreen></iframe>'
+                );
+                var startDate, endDate;
+                var $videoLength = parseInt($info.length[0])
+                var slider_left = ($('#is_edit').val() && bInit) ? $('#clip_edit_time_start').val() : 1;
+                var slider_right = ($('#is_edit').val() && bInit) ? $('#clip_edit_time_end').val() : $videoLength;
+                bInit = false;
+                $("#slider-range").slider({
+                    range: true,
+                    min: 0,
+                    max: $videoLength,
+                    values: [ slider_left, slider_right],
+                    slide: function( event, ui ) {
+                        startDate = new Date(1000*ui.values[ 0 ]);
+                        endDate = new Date(1000*ui.values[ 1 ]);
+                        startDate.setHours(startDate.getUTCHours())
+                        endDate.setHours(endDate.getUTCHours())
 
-        $('#youTubeIframe').html(
-            '<iframe width="560" height="315" src="' + $iframeUrl + '" frameborder="0" allowfullscreen></iframe>'
-        );
-        $('.video-block').removeClass('hide')
+                        $('#time_start_visible').val(startDate.toLocaleTimeString());
+                        $('#time_end_visible').val(endDate.toLocaleTimeString());
+                        $( "#clip_edit_time_start" ).val(ui.values[ 0 ]);
+                        $( "#clip_edit_time_end" ).val(ui.values[ 1 ]);
+                    }
+                });
+                startDate = new Date(1000* $( "#slider-range" ).slider( "values", 0 ));
+                endDate = new Date(1000* $( "#slider-range" ).slider( "values", 1 ));
+                startDate.setHours(startDate.getUTCHours())
+                endDate.setHours(endDate.getUTCHours())
+                $('#time_start_visible').val(startDate.toLocaleTimeString());
+                $('#time_end_visible').val(endDate.toLocaleTimeString());
+
+                $( "#clip_edit_time_start" ).val($( "#slider-range" ).slider( "values", 0 ));
+                $( "#fclip_edit_time_end" ).val( $( "#slider-range" ).slider( "values", 1 ));
+
+                $('.video-block').removeClass('hide')
+            }
+        })
+
+
     })
 
 
@@ -81,7 +114,7 @@ function addTagForm(collectionHolder, $newLinkLi) {
 }
 
 function addTagFormDeleteLink($tagFormLi) {
-    var $removeFormA = $('<button class="btn">delete</button>');
+    var $removeFormA = $('<button class="btn btn-warning">Delete</button>');
     $tagFormLi.append($removeFormA);
 
     $removeFormA.on('click', function(e) {
