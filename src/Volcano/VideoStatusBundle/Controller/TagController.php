@@ -14,13 +14,20 @@ class TagController extends Controller
 {
 
     /**
-     * @Route("/tag/create", name="tag_create")
+     * @Route("/tag/create/{id}", name="tag_create", requirements={"id" = "\d+"}, defaults={"id" = 0})
      * @Template("VolcanoVideoStatusBundle:Tag:create.html.twig")
      */
     public function createAction()
     {
         $request = $this->getRequest();
         $tag = new Tag();
+        $tagId = $request->get('id');
+        if (!empty($tagId)) {
+            $repository = $this->getDoctrine()
+                ->getRepository('VolcanoVideoStatusBundle:Tag');
+
+            $tag = $repository->find($tagId);
+        }
         $form = $this->createForm(new Edit(), $tag);
 
         $form->handleRequest($request);
